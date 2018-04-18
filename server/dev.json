@@ -1,0 +1,30 @@
+{
+    "masterBus": {
+        "logLevel": "trace"
+    },
+    "workerBus": {
+        "logLevel": "trace"
+    },
+    "db": {
+        "db": {
+            "server": "devdb08",
+            "database": "generic-service",
+            "requestTimeout": 20000
+        }
+    },
+    "console": {
+        "disableXsrf": {
+            "ws": true
+        },
+        "disablePermissionVerify": {
+            "ws": true
+        },
+        "server": {
+            "host": "0.0.0.0",
+            "port": 30001
+        }
+    },
+    "gdpr": {
+        "mock": true
+    }
+}

@@ -1,0 +1,133 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "[ SINGLE PROCESS ]",
+            "program": "${workspaceFolder}\\index.js",
+            "runtimeArgs": [
+                "--nolazy",
+                "--preserve-symlinks"
+            ],
+            "env": {
+                "UT_ENV": "dev",
+                "NODE_PATH": "dev"
+            },
+            "outputCapture": "std",
+            "console": "internalConsole",
+            "sourceMaps": false,
+            "outFiles": []
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "master",
+            "program": "${workspaceFolder}\\index.js",
+            "runtimeArgs": [
+                "--nolazy",
+                "--preserve-symlinks"
+            ],
+            "env": {
+                "UT_ENV": "dev",
+                "NODE_PATH": "dev",
+                "UT_APP": "master"
+            },
+            "outputCapture": "std",
+            "console": "internalConsole",
+            "sourceMaps": false,
+            "outFiles": []
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "db",
+            "program": "${workspaceFolder}\\index.js",
+            "runtimeArgs": [
+                "--nolazy",
+                "--preserve-symlinks"
+            ],
+            "env": {
+                "UT_ENV": "dev",
+                "NODE_PATH": "dev",
+                "UT_APP": "components/db"
+            },
+            "outputCapture": "std",
+            "console": "internalConsole",
+            "sourceMaps": false,
+            "outFiles": []
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "gdpr",
+            "program": "${workspaceFolder}\\index.js",
+            "runtimeArgs": [
+                "--nolazy",
+                "--preserve-symlinks"
+            ],
+            "env": {
+                "UT_ENV": "dev",
+                "NODE_PATH": "dev",
+                "UT_APP": "components/gdpr"
+            },
+            "outputCapture": "std",
+            "console": "internalConsole",
+            "sourceMaps": false,
+            "outFiles": []
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "api",
+            "program": "${workspaceFolder}\\index.js",
+            "runtimeArgs": [
+                "--nolazy",
+                "--preserve-symlinks"
+            ],
+            "env": {
+                "UT_ENV": "dev",
+                "NODE_PATH": "dev",
+                "UT_APP": "components/api"
+            },
+            "outputCapture": "std",
+            "console": "internalConsole",
+            "sourceMaps": false,
+            "outFiles": []
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "console",
+            "program": "${workspaceFolder}\\index.js",
+            "runtimeArgs": [
+                "--nolazy",
+                "--preserve-symlinks"
+            ],
+            "env": {
+                "UT_ENV": "dev",
+                "NODE_PATH": "dev",
+                "UT_APP": "components/console"
+            },
+            "outputCapture": "std",
+            "console": "internalConsole",
+            "sourceMaps": false,
+            "outFiles": []
+        }
+    ],
+    "compounds": [
+        {
+            "name": "[ MULTIPROCESS ]",
+            "configurations": [
+                "master",
+                "console",
+                "db",
+                "gdpr",
+                "api"
+            ]
+        }
+    ]
+}

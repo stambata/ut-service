@@ -1,0 +1,54 @@
+{
+    "implementation": "generic-service",
+    "service": "generic",
+    "masterBus": {
+        "logLevel": "error",
+        "socket": false
+    },
+    "workerBus": {
+        "logLevel": "error"
+    },
+    "gdprNamespace": "gdpr",
+    "gdpr": {
+        "autoSync": {
+            "interval": 3000,
+            "retries": 5
+        },
+        "documents": {
+            "generic": {
+                "index": [
+                    {
+                        "type": "string",
+                        "path": "data",
+                        "mode": "full",
+                        "field": "a"
+                    },
+                    {
+                        "type": "string",
+                        "path": "data",
+                        "mode": "full",
+                        "field": "b"
+                    }
+                ],
+                "constraint": [
+                    {
+                        "name": "a + b",
+                        "enabled": false,
+                        "validate": true,
+                        "type": "unique",
+                        "fields": [
+                            {
+                                "path": "data",
+                                "field": "a"
+                            },
+                            {
+                                "path": "data",
+                                "field": "b"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+}

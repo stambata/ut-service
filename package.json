@@ -1,0 +1,54 @@
+{
+  "name": "ut-service",
+  "version": "0.1.0",
+  "description": "generic ut service",
+  "main": "index.js",
+  "scripts": {
+    "lint": "ut-lint .",
+    "release": "ut-release",
+    "changelog": "ut-changelog",
+    "check": "ut-check",
+    "cover": "ut-cover",
+    "precover": "ut-precover",
+    "lint-js": "ut-lint-js .",
+    "postpublish": "ut-postpublish",
+    "postversion": "ut-postversion",
+    "precommit": "ut-precommit",
+    "prepublish": "ut-prepublish",
+    "prepush": "ut-prepush",
+    "pretest": "ut-pretest",
+    "preversion": "ut-preversion",
+    "test": "ut-test",
+    "version": "ut-version",
+    "jenkins": "ut-jenkins",
+    "gitlab": "ut-gitlab"
+  },
+  "dependencies": {
+    "joi": "^13.2.0",
+    "jsonpath": "^1.0.0",
+    "ut-bus": ">=6.3.0-rc-cubalibre.2 <6.3.0",
+    "ut-port-console": ">=8.0.0-rc-cubalibre.1 <8.0.0",
+    "ut-port-http": "^7.1.0",
+    "ut-port-httpserver": "^10.0.0",
+    "ut-port-script": "^6.0.0",
+    "ut-port-sql": "^7.2.0",
+    "ut-run": ">=9.3.0-rc-cubalibre.0 <9.3.0"
+  },
+  "devDependencies": {
+    "ut-tools": "^5.32.10"
+  },
+  "publishConfig": {
+    "registry": "https://nexus.softwaregroup-bg.com/repository/npm-internal"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:stambata/ut-service.git"
+  },
+  "keywords": [
+    "service",
+    "ut service",
+    "generic service"
+  ],
+  "author": "Stamen Peev",
+  "license": "ISC"
+}
