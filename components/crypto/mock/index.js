@@ -7,7 +7,7 @@ function guid() {
 
 function mock() {
     const indicies = {};
-    const constraints = {};
+    // const constraints = {};
     const documents = {};
     const api = {};
     // constraint
