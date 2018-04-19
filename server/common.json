@@ -8,7 +8,6 @@
     "workerBus": {
         "logLevel": "error"
     },
-    "cryptoNamespace": "crypto",
     "crypto": {
         "autoSync": {
             "interval": 3000,
