@@ -4,4 +4,3 @@ exports.request = function(msg, $meta) {
         httpMethod: 'get'
     };
 };
-

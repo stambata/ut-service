@@ -5,4 +5,3 @@ exports.request = function(msg, $meta) {
         payload: msg
     };
 };
-

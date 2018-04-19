@@ -15,12 +15,10 @@ module.exports = ({config = {}}) => {
                     strictSSL: false
                 },
                 parseResponse: false,
-                start() {
+                ready() {
                     if (!this.errors.crypto) {
                         Object.assign(this.errors, errorsFactory(this.defineError));
                     }
-                },
-                ready() {
                     if (!this.config.autoSync) {
                         return;
                     }
