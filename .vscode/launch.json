@@ -63,7 +63,7 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "gdpr",
+            "name": "crypto",
             "program": "${workspaceFolder}\\index.js",
             "runtimeArgs": [
                 "--nolazy",
@@ -72,7 +72,7 @@
             "env": {
                 "UT_ENV": "dev",
                 "NODE_PATH": "dev",
-                "UT_APP": "components/gdpr"
+                "UT_APP": "components/crypto"
             },
             "outputCapture": "std",
             "console": "internalConsole",
@@ -125,7 +125,7 @@
                 "master",
                 "console",
                 "db",
-                "gdpr",
+                "crypto",
                 "api"
             ]
         }

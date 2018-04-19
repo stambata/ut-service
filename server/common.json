@@ -8,8 +8,8 @@
     "workerBus": {
         "logLevel": "error"
     },
-    "gdprNamespace": "gdpr",
-    "gdpr": {
+    "cryptoNamespace": "crypto",
+    "crypto": {
         "autoSync": {
             "interval": 3000,
             "retries": 5

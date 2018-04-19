@@ -1,7 +1,7 @@
 const components = [
     require('../components/console'),
     require('../components/db'),
-    require('../components/gdpr'),
+    require('../components/crypto'),
     require('../components/api')
 ];
 
