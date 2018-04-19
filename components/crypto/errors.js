@@ -7,5 +7,6 @@ module.exports = (define) => {
     };
     create('crypto', null, 'crypto error', 'error');
     create('resourceNotFound', errors.crypto, 'Resource not found. Resource type: {resourceType}');
+    create('resourceAlreadyExists', errors.crypto, 'Resource already exists. Resource type: {resourceType}');
     return errors;
 };

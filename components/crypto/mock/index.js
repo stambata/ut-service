@@ -5,23 +5,46 @@ function guid() {
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
 }
 
-function mock() {
+function mock(errors) {
     const indicies = {};
-    // const constraints = {};
-    const documents = {};
+    const constraints = {};
+    const records = {};
     const api = {};
     // constraint
-    api['constraint.add'] = () => {
-        return {};
+    api['constraint.add'] = ({documentType, items}) => {
+        if (constraints[documentType]) {
+            throw errors['crypto.resourceAlreadyExists']({params: {
+                resourceType: 'constraint'
+            }});
+        }
+        constraints[documentType] = items;
+        return {documentType, items};
     };
-    api['constraint.get'] = () => {
-        return {};
+    api['constraint.get'] = ({documentType}) => {
+        let items = constraints[documentType];
+        if (items) {
+            return {documentType, items};
+        }
+        throw errors['crypto.resourceNotFound']({params: {
+            resourceType: 'constraint'
+        }});
     };
     api['constraint.list'] = () => {
-        return {};
+        return Object.keys(constraints).map(documentType => {
+            return {
+                documentType,
+                items: constraints[documentType]
+            };
+        });
     };
-    api['constraint.update'] = () => {
-        return {};
+    api['constraint.update'] = ({documentType, items}) => {
+        if (!constraints[documentType]) {
+            throw errors['crypto.resourceNotFound']({params: {
+                resourceType: 'constraint'
+            }});
+        }
+        constraints[documentType] = items;
+        return {documentType, items};
     };
     // health
     api['health.check'] = () => {
@@ -30,27 +53,63 @@ function mock() {
     // index
     api['index.add'] = ({documentType, items}) => {
         if (indicies[documentType]) {
-            throw new Error('Index already exists');
+            throw errors['crypto.resourceAlreadyExists']({params: {
+                resourceType: 'index'
+            }});
         }
         indicies[documentType] = items;
-        return items;
+        return {documentType, items};
     };
     api['index.get'] = ({documentType}) => {
-        return indicies[documentType] || [];
+        let items = indicies[documentType];
+        if (items) {
+            return {documentType, items};
+        }
+        throw errors['crypto.resourceNotFound']({params: {
+            resourceType: 'index'
+        }});
+    };
+    api['index.getModes'] = () => {
+        return {
+            'left': 'Left mode tokenizes the input from an edge into n-grams of given size(the length of the input string). Example: Input string: Johnatan Doe Result: \'Joh\', \'John\', \'John \', \'John D\', \'John Do\', \'John Doe\'',
+            'split_left': 'Split left mode is the same as Left mode with the only difference - the input string is split by space before tokenization. Then n-grams are generated from each single word. Example: Input string: Johnatan Doe Result: \'Joh\', \'John\', \'Doe\'',
+            'exact': 'Exact mode will return the exact value(no transformation). Example: Input string: Johnatan Doe Result: \'Johnatan Doe\'',
+            'split_full': 'Split full mode works the same way as full mode with the only difference - the input string is split by space before tokenization. Then n-grams are generated from each single word.Example: Input string: Johnatan Doe Result: \'Joh\', \'John\', \'ohn\', \'Doe\'',
+            'full': 'Full mode will create a collection of n-grams with minimum length of 3 and maximum equal to the length of the input string. Note this is the most complex pattern and the size of output index will become higher. Example: Input string: Johnatan Doe Result: \'Joh\', \'John\', \'John \', \'John D\', \'John Do\', \'John Doe\', \'ohn\', \'ohn \', \'ohn D\', \'ohn Do\', \'ohn Doe\', \'hn \', \'hn D\', \'hn Do\', \'hn Doe\', \'n D\', \'n Do\', \'n Doe\', \' Do\', \' Doe\', \'Doe\''
+        };
+    };
+    api['index.list'] = () => {
+        return Object.keys(indicies).map(documentType => {
+            return {
+                documentType,
+                items: indicies[documentType]
+            };
+        });
     };
     api['index.update'] = ({documentType, items}) => {
         if (!indicies[documentType]) {
-            throw new Error('Can\'t update non-existing index');
+            throw errors['crypto.resourceNotFound']({params: {
+                resourceType: 'index'
+            }});
         }
         indicies[documentType] = items;
-        return items;
+        return {documentType, items};
     };
+    // record
     api['record.add'] = ({type, data}) => {
-        documents[guid()] = {
+        let id = guid();
+        let createdOn = Date.now();
+        records[id] = {
+            id,
             type,
-            data
+            data,
+            createdOn
         };
-        return data;
+        return {
+            id,
+            type,
+            createdOn
+        };
     };
     api['record.fetch'] = (criteria = {}) => {
         if (!criteria.documentType) {
@@ -64,10 +123,10 @@ function mock() {
             documentTypes[key] = true;
         }
         delete criteria.documentTypes;
-        const records = [];
+        const result = [];
 
-        for (let id in documents) {
-            let document = documents[id];
+        for (let id in records) {
+            let document = records[id];
             if (documentTypes[document.type]) {
                 let matched = false;
                 for (let key in criteria) {
@@ -108,22 +167,29 @@ function mock() {
                     }
                 };
                 if (matched) {
-                    records.push(document.data);
+                    result.push(document.data);
                 }
             }
         }
-        return records;
+        return result;
     };
-    // record
     api['record.get'] = ({id}) => {
-        return documents[id];
+        if (!records[id]) {
+            throw errors['crypto.resourceNotFound']({params: {
+                resourceType: 'record'
+            }});
+        }
+        return records[id];
     };
     api['record.update'] = ({id, data}) => {
-        if (!documents[id]) {
-            throw new Error('Can\'t update non-existing record');
+        if (!records[id]) {
+            throw errors['crypto.resourceNotFound']({params: {
+                resourceType: 'record'
+            }});
         }
-        documents[id] = data;
-        return data;
+        records[id].data = data;
+        records[id].updatedOn = Date.now();
+        return records[id];
     };
 
     return api;

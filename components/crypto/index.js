@@ -1,6 +1,6 @@
 const isEqual = require('lodash.isequal');
 const errorsFactory = require('./errors');
-module.exports = ({config = {}}) => {
+module.exports = ({config = {}, bus = {}}) => {
     return {
         ports: [
             {
@@ -73,7 +73,7 @@ module.exports = ({config = {}}) => {
             }
         ],
         modules: {
-            crypto: config.crypto && config.crypto.mock ? require('./mock')() : require('./handlers')
+            crypto: config.crypto && config.crypto.mock ? require('./mock')(errorsFactory(bus.errors.defineError)) : require('./handlers')
         }
     };
 };

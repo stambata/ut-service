@@ -5,3 +5,12 @@ exports.request = function(msg, $meta) {
         payload: msg
     };
 };
+
+exports.error = function(err, $meta) {
+    if (err && err.code === 404) {
+        throw this.errors['crypto.resourceAlreadyExists']({params: {
+            resourceType: 'constraint'
+        }});
+    }
+    throw err;
+};
