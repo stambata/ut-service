@@ -8,7 +8,7 @@ module.exports = () => {
                 imports: ['generic']
             },
             {
-                id: 'httpserver',
+                id: 'httpServer',
                 createPort: require('ut-port-httpserver'),
                 logLevel: 'trace',
                 port: 9999,
