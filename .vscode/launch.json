@@ -116,6 +116,25 @@
             "console": "internalConsole",
             "sourceMaps": false,
             "outFiles": []
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "performance",
+            "program": "${workspaceFolder}\\index.js",
+            "runtimeArgs": [
+                "--nolazy",
+                "--preserve-symlinks"
+            ],
+            "env": {
+                "UT_ENV": "dev",
+                "NODE_PATH": "dev",
+                "UT_APP": "components/performance"
+            },
+            "outputCapture": "std",
+            "console": "internalConsole",
+            "sourceMaps": false,
+            "outFiles": []
         }
     ],
     "compounds": [
@@ -124,6 +143,7 @@
             "configurations": [
                 "master",
                 "console",
+                "performance",
                 "db",
                 "crypto",
                 "api"
